@@ -78,4 +78,8 @@ export class SiteMapComponent extends withUnsubscribe() implements OnInit {
       sanitizeMapMarkers(sites.map((site) => site.getMapMarker()))
     );
   }
+
+  public get hasLocations(): boolean {
+    return this.markers.size > 0;
+  }
 }

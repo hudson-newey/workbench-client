@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Filters } from "@baw-api/baw-api.service";
 import { projectResolvers } from "@baw-api/project/projects.service";
@@ -10,6 +10,7 @@ import {
 import { SitesService } from "@baw-api/site/sites.service";
 import { audioRecordingMenuItems } from "@components/audio-recordings/audio-recording.menus";
 import { harvestsMenuItem } from "@components/harvest/harvest.menus";
+import { SiteMapComponent } from "@components/projects/components/site-map/site-map.component";
 import {
   assignSiteMenuItem,
   deleteProjectMenuItem,
@@ -91,7 +92,7 @@ const projectKey = "project";
 
       <ul id="model-grid" class="list-group">
         <!-- Google Maps -->
-        <div *ngIf="hasSites || hasRegions || loading" class="item map">
+        <div *ngIf="(hasSites || hasRegions || loading) && project.hasLocations" class="item map">
           <baw-site-map [project]="project"></baw-site-map>
         </div>
 
@@ -135,6 +136,7 @@ class DetailsComponent
    * Api requests are independent, use this to track when both complete
    */
   private apiReturnCount = 0;
+  @ViewChild(SiteMapComponent) public map: SiteMapComponent;
 
   public constructor(
     route: ActivatedRoute,

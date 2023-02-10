@@ -64,6 +64,6 @@
   </div>
   <!-- Map using right column -->
   <div class="col-sm-6" style="min-height: 400px">
-    <baw-map [markers]="marker"></baw-map>
+    <baw-map *ngIf="site.hasLocation" [markers]="marker"></baw-map>
   </div>
 </div>

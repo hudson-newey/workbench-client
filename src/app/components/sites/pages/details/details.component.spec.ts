@@ -15,6 +15,7 @@ import {
   isBawApiError,
 } from "@helpers/custom-errors/baw-api-error";
 import { generateBawApiError } from "@test/fakes/BawApiError";
+import { MapComponent } from "@shared/map/map.component";
 import { SiteDetailsComponent } from "./details.component";
 
 const mockSiteComponent = MockComponent(SiteComponent);
@@ -54,6 +55,10 @@ describe("SiteDetailsComponent", () => {
       detectChanges: false,
       data: { resolvers, ...models },
     });
+  }
+
+  function getMap() {
+    spec.query(MapComponent);
   }
 
   beforeEach(() => {
@@ -101,6 +106,15 @@ describe("SiteDetailsComponent", () => {
         expect(project).toEqual(defaultProject);
         expect(region).toEqual(defaultRegion);
         expect(site).toEqual(defaultSite);
+      });
+
+      it("should create a baw-map for sites with a location", () => {
+        setup(defaultProject, defaultSite, defaultRegion);
+        spec.detectChanges();
+        expect(getMap()).toExist();
+      });
+
+      it("should not create a baw-map for sites that do not have a location", () => {
       });
     });
   });

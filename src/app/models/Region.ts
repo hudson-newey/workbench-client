@@ -100,6 +100,10 @@ export class Region extends AbstractModel<IRegion> implements IRegion {
     return visualizeMenuItem.route.format(undefined, { siteIds: this.siteIds });
   }
 
+  public get hasLocations(): boolean {
+    return this?.sites.filter((site) => site?.hasLocation).length > 0;
+  }
+
   public getAudioRecordingsUrl(): string {
     return audioRecordingsRoutes.region.format({
       projectId: this.projectId,

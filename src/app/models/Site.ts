@@ -192,6 +192,10 @@ export class Site extends AbstractModel<ISite> implements ISite {
     return isInstantiated(this.regionId);
   }
 
+  public get hasLocation(): boolean {
+    return !!this.getLatitude() && !!this.getLongitude();
+  }
+
   /**
    * Get site latitude
    */

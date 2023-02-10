@@ -126,4 +126,9 @@ export class Project extends AbstractModel<IProject> implements IProject {
   public get viewUrl(): string {
     return projectRoute.format({ projectId: this.id });
   }
+
+  public get hasLocations(): boolean {
+    return this.regions.filter((region) => region.hasLocations).length > 1 ||
+      this.sites.filter((site) => site.hasLocation).length > 1;
+  }
 }
