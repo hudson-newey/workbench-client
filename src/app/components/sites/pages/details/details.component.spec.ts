@@ -16,9 +16,11 @@ import {
 } from "@helpers/custom-errors/baw-api-error";
 import { generateBawApiError } from "@test/fakes/BawApiError";
 import { MapComponent } from "@shared/map/map.component";
+import { fakeAsync, flush } from "@angular/core/testing";
 import { SiteDetailsComponent } from "./details.component";
 
 const mockSiteComponent = MockComponent(SiteComponent);
+const mockMap = MockComponent(MapComponent);
 
 describe("SiteDetailsComponent", () => {
   let defaultError: BawApiError;
@@ -27,7 +29,10 @@ describe("SiteDetailsComponent", () => {
   let defaultSite: Site;
   let spec: SpectatorRouting<SiteDetailsComponent>;
   const createComponent = createRoutingFactory({
-    declarations: [mockSiteComponent],
+    declarations: [
+      mockSiteComponent,
+      mockMap,
+    ],
     component: SiteDetailsComponent,
   });
 
@@ -59,6 +64,12 @@ describe("SiteDetailsComponent", () => {
 
   function getMap() {
     spec.query(MapComponent);
+  }
+
+  function updateComponent() {
+    spec.detectChanges();
+    flush();
+    spec.detectChanges();
   }
 
   beforeEach(() => {
@@ -108,14 +119,25 @@ describe("SiteDetailsComponent", () => {
         expect(site).toEqual(defaultSite);
       });
 
-      it("should create a baw-map for sites with a location", () => {
+      it("should create a baw-map for sites with a location", fakeAsync(() => {
         setup(defaultProject, defaultSite, defaultRegion);
-        spec.detectChanges();
+        updateComponent();
         expect(getMap()).toExist();
-      });
+      }));
 
-      it("should not create a baw-map for sites that do not have a location", () => {
-      });
+      it("should not create a baw-map for sites that do not have a location", fakeAsync(() => {
+        defaultSite = new Site(generateSite({
+          latitude: null,
+          longitude: null,
+          customLatitude: null,
+          customLongitude: null,
+        }));
+
+        setup(defaultProject, defaultSite, defaultRegion);
+        updateComponent();
+
+        expect(getMap()).not.toExist();
+      }));
     });
   });
 });
