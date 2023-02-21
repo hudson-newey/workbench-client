@@ -127,13 +127,11 @@
     </p>
 
     <ng-container *ngIf="models$ | withLoading | async as models">
-      <baw-loading *ngIf="models.loading" [size]="lg"></baw-loading>
-
       <p *ngIf="models.error" id="error">
         Unable to load {{ viewMoreLink.label | titlecase }}
       </p>
 
-      <baw-model-cards *ngIf="models.value" [models]="models.value">
+      <baw-model-cards *ngIf="models.value; else placeholderProjects" [models]="models.value">
         <p *ngIf="models.value.size === 0" id="placeholder" class="m-auto">
           No {{ viewMoreLink.label | titlecase }}s to display
         </p>
@@ -147,6 +145,12 @@
           More {{ viewMoreLink.label | titlecase }}s
         </a>
       </baw-model-cards>
+
+      <ng-template #placeholderProjects>
+        <baw-model-cards [models]="[].constructor(3)">
+          <a class="m-auto btn btn-outline-highlight btn-lg w-50" [loadingPredicate]="models.loading" bawLoading></a>
+        </baw-model-cards>
+      </ng-template>
     </ng-container>
   </div>
 </section>

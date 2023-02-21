@@ -13,7 +13,8 @@ import { List } from "immutable";
   selector: "baw-model-cards",
   template: `
     <div class="row">
-      <baw-card *ngFor="let model of models ?? []" [model]="model"></baw-card>
+      <baw-card *ngFor="let model of models" [model]="model"></baw-card>
+
       <div id="content">
         <ng-content></ng-content>
       </div>

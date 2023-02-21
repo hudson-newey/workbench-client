@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 import { IconsModule } from "@shared/icons/icons.module";
+import { DirectivesModule } from "@directives/directives.module";
 import { ItemComponent } from "./item/item.component";
 import { ItemsComponent } from "./items/items.component";
 import { SelectableItemsComponent } from "./selectable-items/selectable-items.component";
@@ -12,7 +13,7 @@ import { SelectableItemsComponent } from "./selectable-items/selectable-items.co
  */
 @NgModule({
   declarations: [ItemsComponent, ItemComponent, SelectableItemsComponent],
-  imports: [CommonModule, RouterModule, IconsModule, NgbTooltipModule],
+  imports: [CommonModule, RouterModule, IconsModule, NgbTooltipModule, DirectivesModule],
   exports: [ItemsComponent, ItemComponent, SelectableItemsComponent],
 })
 export class ItemsModule {}

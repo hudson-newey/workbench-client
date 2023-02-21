@@ -8,7 +8,7 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
   template: `
     <!-- Loading text -->
     <ng-container *ngIf="user | isUnresolved; else resolved">
-      <baw-loading size="sm"></baw-loading>
+      <a [loadingPredicate]="user | isUnresolved" bawLoading></a>
     </ng-container>
 
     <ng-template #resolved>

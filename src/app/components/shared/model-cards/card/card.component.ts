@@ -17,15 +17,15 @@ import { map, Observable } from "rxjs";
     <div class="card h-100">
       <!-- Image -->
       <div class="card-image position-relative">
-        <a [bawUrl]="model.viewUrl">
-          <img [alt]="model.name + ' image'" [src]="model.imageUrls" />
+        <a [bawUrl]="model?.viewUrl">
+          <img [alt]="model?.name + ' image'" [src]="model?.imageUrls" [isLoading]="!model" bawLoading />
         </a>
       </div>
 
       <div class="card-body">
         <!-- Title -->
-        <a class="card-title" [bawUrl]="model.viewUrl">
-          <h4 [innerText]="model.name"></h4>
+        <a class="card-title" [bawUrl]="model?.viewUrl">
+          <h4 [innerText]="model?.name" [isLoading]="!model" bawLoading></h4>
         </a>
 
         <!-- Description -->
@@ -33,8 +33,9 @@ import { map, Observable } from "rxjs";
           <div class="truncate">
             <p
               [innerHtml]="
-                model.descriptionHtmlTagline ?? '<i>No description given</i>'
+                model?.descriptionHtmlTagline ?? '<i>No description given</i>'
               "
+              [isLoading]="!model" bawLoading
             ></p>
           </div>
         </div>
@@ -55,12 +56,7 @@ import { map, Observable } from "rxjs";
           id="no-audio"
           class="badge text-bg-secondary"
         >
-          <baw-loading
-            *ngIf="hasNoAudio.loading"
-            size="sm"
-            color="light"
-          ></baw-loading>
-          <span *ngIf="hasNoAudio.value">No audio yet</span>
+          <span [isLoading]="hasNoAudio.loading" bawLoading>No audio yet</span>
         </div>
       </ng-container>
     </ng-template>
@@ -77,7 +73,7 @@ export class CardComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.isOwner = this.model.creatorId === this.session.loggedInUser?.id;
+    this.isOwner = this.model?.creatorId === this.session.loggedInUser?.id && this.session.isLoggedIn;
     this.hasNoAudio$ = this.getRecordings().pipe(
       map((recordings): boolean => recordings.length === 0)
     );

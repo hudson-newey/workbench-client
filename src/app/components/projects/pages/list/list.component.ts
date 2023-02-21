@@ -31,7 +31,7 @@ export const projectsMenuItemActions = [
         (filter)="onFilter($event)"
       ></baw-debounce-input>
 
-      <ng-container *ngIf="!loading">
+      <ng-container *ngIf="!loading; else loadingPlaceholders">
         <!-- Projects Exist -->
         <ng-container *ngIf="models.size > 0; else empty">
           <baw-model-cards [models]="models"></baw-model-cards>
@@ -42,6 +42,10 @@ export const projectsMenuItemActions = [
           <h4 class="text-center">Your list of projects is empty</h4>
         </ng-template>
       </ng-container>
+
+      <ng-template #loadingPlaceholders>
+        <baw-model-cards [models]="[].constructor(25)"></baw-model-cards>
+      </ng-template>
 
       <ngb-pagination
         *ngIf="displayPagination"

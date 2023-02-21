@@ -10,8 +10,8 @@ import { DateTime } from "luxon";
   selector: "baw-user-badge",
   template: `
     <div *ngFor="let user of models">
-      <!-- Spinner -->
-      <baw-loading *ngIf="user | isUnresolved"></baw-loading>
+      <!-- Loading placeholder -->
+      <div [loadingPredicate]="user | isUnresolved" bawLoading></div>
 
       <!-- User Resolved -->
       <div *ngIf="!(user | isUnresolved)" id="users" class="d-flex mb-1">

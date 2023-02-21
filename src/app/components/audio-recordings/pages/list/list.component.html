@@ -35,10 +35,9 @@
       </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         <!-- Show loading animation while site is unresolved -->
-        <baw-loading
-          *ngIf="site ?? value.site | isUnresolved; else showSite"
-          size="sm"
-        ></baw-loading>
+        <ng-container *ngIf="site ?? value.site | isUnresolved; else showSite">
+          <a [loadingPredicate]="true" bawLoading></a>
+        </ng-container>
 
         <!-- Create site link when site is loaded-->
         <ng-template #showSite>

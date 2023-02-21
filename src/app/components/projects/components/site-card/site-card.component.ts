@@ -44,12 +44,7 @@ import { map } from "rxjs/operators";
             id="no-audio"
             class="badge rounded-pill text-bg-secondary my-1"
           >
-            <baw-loading
-              *ngIf="hasNoAudio.loading"
-              size="sm"
-              color="light"
-            ></baw-loading>
-            <span *ngIf="hasNoAudio.value">No audio yet</span>
+            <span [loadingPredicate]="hasNoAudio.loading" bawLoading>No audio yet</span>
           </span>
         </li>
       </ng-container>
